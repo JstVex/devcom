@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import Sidebar from '@/components/Sidebar'
 import clsx from 'clsx'
 import styles from '@/styles/Beam.module.css'
+import Providers from '@/components/Providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,8 +27,11 @@ export default function RootLayout({
           )}
         />
         <div className='fixed flex w-screen'>
-          <Sidebar />
-          {children}
+          <Providers>
+            {/*  @ts-expect-error Server Component */}
+            <Sidebar />
+            {children}
+          </Providers>
         </div>
 
       </body>
