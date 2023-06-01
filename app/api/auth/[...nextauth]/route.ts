@@ -27,11 +27,14 @@ export const authOptions: NextAuthOptions = {
     session: {
         strategy: 'jwt',
     },
+    secret: process.env.NEXTAUTH_SECRET,
     providers: [
         GithubProvider({
             clientId: getGithubCredentials().clientId,
             clientSecret: getGithubCredentials().clientSecret,
-        }),
+            // authorization: { params: { scope: 'read:user,user:email,profile' } },
+        })
+
     ],
     callbacks: {
         async session({ token, session }) {
@@ -40,6 +43,8 @@ export const authOptions: NextAuthOptions = {
                 session.user.name = token.name
                 session.user.email = token.email
                 session.user.image = token.picture
+                // session.user.githubName = token.githubName; // Add GitHub name to the session
+                // session.user.githubAccount = token.githubAccount; // Add GitHub account to the session
             }
 
             return session
@@ -61,6 +66,7 @@ export const authOptions: NextAuthOptions = {
                 name: dbUser.name,
                 email: dbUser.email,
                 picture: dbUser.image,
+                // githubName: dbUser.githubName
             }
         },
         redirect() {
