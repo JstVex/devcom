@@ -2,8 +2,10 @@ import CreateServer from "@/components/home/CreateServer"
 import RecommendedServers from "@/components/home/RecommendedServers"
 import SearchBar from "@/components/home/SearchBar"
 import Box from "@/components/ui/Box"
+import getRecommendedServers from "@/actions/getRecommendedServers"
 
 export default async function Home() {
+  const recommendedServers = await getRecommendedServers();
 
   return (
     <Box className="p-5">
@@ -11,6 +13,14 @@ export default async function Home() {
         <SearchBar />
         <CreateServer />
       </div>
+      <h3 className="my-5 text-lg text-slate-800 dark:text-slate-200">
+        Some recommendations for you
+      </h3>
+      {recommendedServers.map((recommendedServer) => {
+        return <RecommendedServers key={recommendedServer.id} server={recommendedServer} />
+      })}
+
+
     </Box>
   )
 }
