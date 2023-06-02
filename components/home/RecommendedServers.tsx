@@ -1,4 +1,5 @@
 import { Server } from '@prisma/client'
+import Link from 'next/link'
 import { FC } from 'react'
 
 interface RecommendedServersProps {
@@ -24,10 +25,13 @@ const RecommendedServers: FC<RecommendedServersProps> = ({ server }) => {
                             Maximum: {server.maxMembers}
                         </div>
                     </div>
-                    <button className='text-slate-900 rounded-md px-3 py-2 shadow-xl bg-slate-800 sm:rounded-xl dark:bg-slate-900/10 dark:backdrop-blur dark:ring-1 dark:ring-inset dark:ring-white/10 dark:text-slate-100'>
-                        {server.status === 'public' && 'Join'}
-                        {server.status === 'private' && 'Request to Join'}
-                    </button>
+                    <Link href={`/${server.id}`}>
+                        <button className='text-slate-900 rounded-md px-3 py-2 shadow-xl bg-slate-800 sm:rounded-xl dark:bg-slate-900/10 dark:backdrop-blur dark:ring-1 dark:ring-inset dark:ring-white/10 dark:text-slate-100'>
+                            {server.status === 'public' && 'Join'}
+                            {server.status === 'private' && 'Request to Join'}
+                        </button>
+                    </Link>
+
 
                 </div>
             </div>
