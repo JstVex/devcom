@@ -4,6 +4,7 @@ import Box from '@/components/ui/Box'
 import axios from 'axios'
 import { FC, useState } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 
 interface createServerProps {
 
@@ -11,6 +12,7 @@ interface createServerProps {
 
 const CreateServer: FC<createServerProps> = ({ }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const router = useRouter();
 
     const {
         register,
@@ -31,7 +33,10 @@ const CreateServer: FC<createServerProps> = ({ }) => {
         setIsLoading(true);
 
         axios.post('api/create-server', data)
-            .then(() => console.log('success server creation'))
+            .then(() => {
+                console.log('success server creation')
+                router.refresh()
+            })
             .catch((err) => console.log('server creation error', err))
             .finally(() => setIsLoading(true))
     }
