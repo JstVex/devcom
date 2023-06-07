@@ -28,8 +28,6 @@ export default function RootLayout({
         />
         <div className='fixed flex w-screen'>
           <Providers>
-            {/*  @ts-expect-error Server Component */}
-            <Sidebar />
             {children}
           </Providers>
         </div>
