@@ -16,8 +16,12 @@ const getJoinedServers = async () => {
             where: {
                 ownerId: {
                     not: currentUser.id
+                },
+                userIds: {
+                    has: currentUser.id
                 }
             },
+
         })
         return ownedServers;
     } catch (error: any) {
