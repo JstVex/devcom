@@ -33,9 +33,9 @@ const CreateServer: FC<createServerProps> = ({ }) => {
         setIsLoading(true);
 
         axios.post('api/create-server', data)
-            .then(() => {
-                console.log('success server creation')
-                router.refresh()
+            .then((server) => {
+                console.log('success server creation', server)
+                router.push(`/server/${server.data.id}`)
             })
             .catch((err) => console.log('server creation error', err))
             .finally(() => setIsLoading(true))
