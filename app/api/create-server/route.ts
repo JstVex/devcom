@@ -22,12 +22,22 @@ export async function POST(
         const server = await db.server.create({
             data: {
                 name,
-                owner: 'Julian',
-                ownerId: 'plsletmejust',
+                owner: currentUser.name,
+                ownerId: currentUser.id,
                 description,
                 maxMembers,
-                status
+                status,
+                users: {
+                    connect: {
+                        id: currentUser.id
+                    }
+                }
+            },
+            include: {
+                users: true
             }
+
+
         })
 
         return NextResponse.json(server);
