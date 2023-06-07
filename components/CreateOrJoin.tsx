@@ -13,8 +13,8 @@ const CreateOrJoin: FC<CreateOrJoinProps> = ({ }) => {
     const pathname = usePathname();
     return (
         <div>
-            {pathname !== '/' && pathname !== '/create-server' &&
-                <Link href='/' >
+            {pathname !== '/server' && pathname !== '/create-server' &&
+                <Link href='/server' >
                     <div className='text-sm py-2 px-3 flex items-center gap-x-2 rounded-md border cursor-pointer mb-3 dark:border-white/10'>
                         <Plus />
                         Create or join a new server
