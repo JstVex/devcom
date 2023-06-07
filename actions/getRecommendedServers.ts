@@ -16,7 +16,13 @@ const getRecommendedServers = async () => {
             where: {
                 ownerId: {
                     not: currentUser.id
+                },
+                NOT: {
+                    userIds: {
+                        has: currentUser.id
+                    }
                 }
+
             },
         })
         return recommendedServers;
