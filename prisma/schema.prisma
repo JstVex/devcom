@@ -25,6 +25,8 @@ model User {
 
   serverIds String[] @db.ObjectId
   servers   Server[] @relation(fields: [serverIds], references: [id])
+
+  messages Message[]
 }
 
 model Account {
@@ -59,4 +61,32 @@ model Server {
 
   userIds String[] @db.ObjectId
   users   User[]   @relation(fields: [userIds], references: [id])
+
+  // channelIds String[] @db.ObjectId
+  // channels Channel[] @relation(fields: [channelIds], references: [id])
+  channels Channel[]
+}
+
+model Channel {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+
+  serverId String @db.ObjectId
+  servers  Server @relation(fields: [serverId], references: [id])
+
+  messageIds String[]  @db.ObjectId
+  messages   Message[]
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  body      String?
+  image     String?
+  createdAt DateTime @default(now())
+
+  channelId String  @db.ObjectId
+  channel   Channel @relation(fields: [channelId], references: [id])
+
+  senderId String @db.ObjectId
+  sender   User   @relation(fields: [senderId], references: [id], onDelete: Cascade)
 }
