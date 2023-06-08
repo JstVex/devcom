@@ -40,6 +40,18 @@ export async function POST(
 
         })
 
+        const generalChannel = await db.channel.create({
+            data: {
+                name: 'general',
+                servers: {
+                    connect: {
+                        id: server.id
+                    }
+                }
+            },
+
+        })
+
         return NextResponse.json(server);
     } catch (error: any) {
         console.log('CREATE SERVER ERROR:', error);
