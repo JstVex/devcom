@@ -17,6 +17,7 @@ const CreateServer: FC<createServerProps> = ({ }) => {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: {
             errors
         }
@@ -34,6 +35,11 @@ const CreateServer: FC<createServerProps> = ({ }) => {
 
         axios.post('api/create-server', data)
             .then((server) => {
+                setValue('name', '', { shouldValidate: true })
+                setValue('description', '', { shouldValidate: true })
+                setValue('maxMembers', '', { shouldValidate: true })
+                setValue('status', '', { shouldValidate: true })
+
                 console.log('success server creation', server)
                 router.push(`/server/${server.data.id}`)
             })
